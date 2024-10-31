@@ -2,21 +2,36 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 // import App from './App.jsx'
 import './index.css'
-import World from './components/World/World.jsx'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import Layout from './components/Layout/Layout.jsx'
 import Login from './components/Login/Login.jsx'
+import Home from './pages/Home/Home.jsx'
+import ProblemasMedioAmbientales from './pages/ProblemasMedioAmbientales/ProblemasMedioAmbientales.jsx'
+import ProblemaContaminacion from './pages/ProblemasMedioAmbientales/ProblemaContaminacion/ProblemaContaminacion.jsx'
 
 const router = createBrowserRouter([
-
   {
-    path: "/",
-    element: <Login />,
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: <Login />,
+      },
+      {
+        path: "/Home",
+        element: <Home />,
+      },
+      {
+        path: "/problemas-ambientales",
+        element: <ProblemasMedioAmbientales />,
+      },
+      {
+        path: "/problemas-ambientales/contaminacion-del-agua",
+        element: <ProblemaContaminacion />,
+      }
+    ],
   },
-  {
-    path: "/World",
-    element: <World />,
-  },
-])
+]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
