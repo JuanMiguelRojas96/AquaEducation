@@ -1,8 +1,9 @@
-import {Text, Plane} from '@react-three/drei'
+import {Text, Plane, Float} from '@react-three/drei'
 import { Texto3D } from "../../../components/models/text3d/Texto3D-Desierto";
 import { Button3D } from "../../../components/models/button3d/Button3D-Desierto";
 import { useRef, useState, useCallback, } from "react";
 import { useNavigate } from "react-router-dom";
+import { DoubleSide } from 'three';
 
 
 const DesertElements = () => {
@@ -24,10 +25,21 @@ const DesertElements = () => {
     const groupRef = useRef();
   return (
     <>
+    <Float
+      speed={5}
+      rotationIntensity={0.5}
+      floatIntensity={0.1}
+      floatingRange={[1, 0.5]}
+    >
+
       <Texto3D text={`ESCASEZ  DEL AGUA`} />
+
+
+    </Float>
+
       <Button3D text={buttonState} onClick={handleClick} />
       <group ref={groupRef} visible={isVisible}>
-        <Plane args={[20, 8]} position={[0, -1.5, -0.1]}>
+        <Plane args={[10, 8]} position={[0, -1.5, -0.1]}>
           <meshStandardMaterial
             attach="material"
             color="white"
@@ -54,7 +66,8 @@ const DesertElements = () => {
           Abordar esta problemática es fundamental para garantizar un futuro
           sostenible, al ser el agua un recurso esencial para la vida y el
           equilibrio de los ecosistemas.
-          <meshStandardMaterial attach="material" color="white" />
+          <meshStandardMaterial attach="material" color="white"
+          side={DoubleSide} />
         </Text>
       </group>
     </>
