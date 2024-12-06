@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ExploracionContaminacionModel } from "./ExploracionContaminacionModel";
 import { Canvas } from "@react-three/fiber";
 import { Html, Sky } from "@react-three/drei";
@@ -35,7 +36,9 @@ const cameraPositions = [
 export const ExploracionContaminacion = () => {
   const { setAspect } = useAspectsStore();
   const [ubication, setUbication] = useState([-5, 1, 0]);
-  const [currentIndex, setCurrentIndex] = useState(0); // Controla el índice del texto actual
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const navegate = useNavigate();
+
 
   const handleAspect = useCallback(
     (name, position, ubicationHtml) => {
@@ -60,6 +63,10 @@ export const ExploracionContaminacion = () => {
       cameraPositions[newIndex],
       [-5, 1, 0]
     );
+  };
+
+  const handleSensibilization = () => {
+    navegate("/soluciones/contaminacion-del-agua");
   };
 
   const handleKeydown = (event) => {
@@ -133,11 +140,9 @@ export const ExploracionContaminacion = () => {
             <p className="exploracion-html-paragraph">{texts[currentIndex].content}</p>
             <button
               className="exploracion-html-button"
-              onClick={() =>
-                handleNext()
-              }
+              onClick={ currentIndex === 2 ? handleSensibilization : handleNext }
             >
-              Siguiente
+              { currentIndex === 2 ? "Exporemos la solución" : "Siguiente"}
             </button>
           </div>
         </Html>
