@@ -1,11 +1,12 @@
 /* eslint-disable react/no-unknown-property */
-import { Suspense, useRef, useState } from "react";
+import { Suspense, useCallback, useRef, useState } from "react";
 import {
   Box,
   Environment,
   Html,
   Loader,
   Plane,
+  PositionalAudio,
   Sky,
   Text3D,
   useGLTF,
@@ -17,6 +18,8 @@ import Controls from "./Control/ControlCamera.jsx";
 import Lights from "./Lights/Lights.jsx";
 import Staging from "./Staging/Staging.jsx";
 import { useNavigate } from "react-router-dom";
+import { EffectComposer, Pixelation } from "@react-three/postprocessing";
+import { loop } from "three/src/nodes/utils/LoopNode.js";
 
 extend({ Box, Plane });
 
@@ -50,6 +53,12 @@ const AcidificationIntroduction = () => {
   const [hovered, setHovered] = useState(false);
   const [clicked, setClicked] = useState(false);
   const [goToExplore, setGoToExplore] = useState(false);
+  const audioRef = useRef();
+
+  const handleAudio = useCallback(() => {
+    audioRef.current.play();
+    audioRef.current.setVolume(10);
+  }, []);
 
   const navigate = useNavigate();
 
@@ -96,11 +105,16 @@ const AcidificationIntroduction = () => {
       shadows
       camera={{ position: [0, -10, 19], fov: 80 }}
       className="canvas-background"
+      onClick={handleAudio}
     >
       <Suspense fallback={null}>
         <Controls />
         <Lights />
         <IntroModels />
+        <EffectComposer>
+          <Pixelation granularity={2} pixelSize={2} />
+        </EffectComposer>
+
         <Sky
           sunPosition={[0, 12, 26]}
           inclination={0.2}
@@ -237,6 +251,14 @@ const AcidificationIntroduction = () => {
               {clicked ? "Explorar" : "Leer más"}
             </Text3D>
           </Box>
+        </group>
+
+        <group position={[0, -10, 0]}>
+          <PositionalAudio
+            ref={audioRef}
+            loop
+            url="/sounds/underwater-ambiencewav-14428.mp3"
+          />
         </group>
 
         <Staging />

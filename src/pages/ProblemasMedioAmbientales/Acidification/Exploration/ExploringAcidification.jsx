@@ -3,6 +3,7 @@ import {
   Html,
   OrbitControls,
   OrthographicCamera,
+  PositionalAudio,
   Sky,
   Text,
   Text3D,
@@ -10,7 +11,14 @@ import {
   useTexture,
 } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import Staging from "../Problem Introduccion/Staging/Staging";
 import { AxesHelper, CameraHelper, RepeatWrapping } from "three";
 import {
@@ -24,6 +32,11 @@ import { useNavigate } from "react-router-dom";
 import { useAnimations } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import Jellyfish from "./Jellyfish.jsx";
+import {
+  Bloom,
+  DepthOfField,
+  EffectComposer,
+} from "@react-three/postprocessing";
 
 const Floor = () => {
   const TEXTURE_PATH =
@@ -154,8 +167,17 @@ const ExploringAcidification = () => {
     }
   }, [coralModels]);
 
+  const audioRef = useRef();
+
+  const handleAudio = useCallback(() => {
+    audioRef.current.play();
+    audioRef.current.setVolume(10);
+  }, []);
+
   const onClickChangeText = () => {
     // //console.log(textInfo);
+    handleAudio();
+
     switch (textInfo) {
       case textInformation:
         setTextInfo(textQuestion);
@@ -272,6 +294,7 @@ const ExploringAcidification = () => {
           contextMenu="none"
           width="100vw"
           height="100vh"
+          onClick={handleAudio}
         >
           <Suspense fallback={null}>
             {/* Luz Direccional */}
@@ -609,9 +632,27 @@ const ExploringAcidification = () => {
               </group>
             </Physics>
             <Staging />
-            {/* <Html>
-              <button>Soluciones</button>
-            </Html> */}
+
+            <EffectComposer>
+              <DepthOfField
+                focusDistance={2}
+                focalLength={0.02}
+                bokehScale={0.4}
+                height={480}
+              />
+              <Bloom
+                luminanceThreshold={0}
+                luminanceSmoothing={8}
+                height={600}
+              />
+            </EffectComposer>
+            <group position={[0, -10, 0]}>
+              <PositionalAudio
+                ref={audioRef}
+                loop
+                url="/sounds/underwater-ambiencewav-14428.mp3"
+              />
+            </group>
           </Suspense>
         </Canvas>
         <div>
@@ -629,6 +670,7 @@ const ExploringAcidification = () => {
                 cursor: "pointer",
                 fontSize: "2.6rem",
                 fontFamily: "Sawer",
+                userSelect: "none",
               }}
               onClick={() =>
                 navigate("/soluciones/acidificacion-de-los-oceanos")
