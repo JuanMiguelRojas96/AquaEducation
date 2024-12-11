@@ -3,6 +3,7 @@ import {
   Html,
   OrbitControls,
   OrthographicCamera,
+  PositionalAudio,
   Sky,
   Text,
   Text3D,
@@ -10,7 +11,14 @@ import {
   useTexture,
 } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { AxesHelper, CameraHelper, RepeatWrapping } from "three";
 import {
   MeshCollider,
@@ -24,12 +32,25 @@ import { useFrame } from "@react-three/fiber";
 import Fish from "./Fish.jsx";
 import Leviathan from "./Leviathan.jsx";
 import Floor from "./Floor.jsx";
+import {
+  Bloom,
+  DepthOfField,
+  EffectComposer,
+} from "@react-three/postprocessing";
 
 const AcidificationSolutions = () => {
   document.body.style.overflow = "hidden";
 
   const refCamera = useRef();
   const lightRef = useRef();
+
+  const audioRef = useRef();
+
+  const handleAudio = useCallback(() => {
+    audioRef.current.play();
+    audioRef.current.setVolume(10);
+  }, []);
+
   return (
     <>
       <Canvas
@@ -44,6 +65,7 @@ const AcidificationSolutions = () => {
         contextMenu="none"
         width="100vw"
         height="100vh"
+        onClick={handleAudio}
       >
         <Suspense fallback={null}>
           <Physics
@@ -106,6 +128,20 @@ const AcidificationSolutions = () => {
               distance={1000000}
               // castShadow={true}
             />
+
+            <EffectComposer>
+              <DepthOfField
+                focusDistance={2}
+                focalLength={0.02}
+                bokehScale={0.4}
+                height={480}
+              />
+              <Bloom
+                luminanceThreshold={0}
+                luminanceSmoothing={10}
+                height={600}
+              />
+            </EffectComposer>
 
             <group position={[-22, 19, 0]}>
               <Text3D
@@ -410,6 +446,14 @@ const AcidificationSolutions = () => {
                 </div>
               </div>
             </Html>
+
+            <group position={[0, -10, 0]}>
+              <PositionalAudio
+                ref={audioRef}
+                loop
+                url="/sounds/underwater-ambiencewav-14428.mp3"
+              />
+            </group>
           </Physics>
         </Suspense>
       </Canvas>
