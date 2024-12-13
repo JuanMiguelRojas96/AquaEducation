@@ -19,7 +19,6 @@ import Iguana from "../../escasez-agua/world/Iguana";
 import { Perf } from "r3f-perf";
 import Video from "./world/Video";
 
-
 const Solutions = () => {
   const map = useMovements();
 
@@ -35,7 +34,6 @@ const Solutions = () => {
     audioRef.current.setVolume(10);
   }, []);
 
-
   return (
     <KeyboardControls map={map}>
       <Canvas shadows onClick={handleAudio}>
@@ -44,10 +42,9 @@ const Solutions = () => {
           <Lights />
           <Staging />
           <Physics debug={false}>
-            <SphereRobot scale={0.5}/>
+            <SphereRobot scale={0.5} />
             <Desert />
-            {/* <DesertModified /> */}
-            <Iguana position={[10, 0, 8]}/>
+            <Iguana position={[10, 0, 8]} />
           </Physics>
           <Video
             name="screen"
