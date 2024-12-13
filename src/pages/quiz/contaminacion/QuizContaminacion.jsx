@@ -2,13 +2,24 @@ import { Canvas } from "@react-three/fiber";
 import { Loader, OrbitControls, Plane, Text, Sky } from "@react-three/drei";
 import { Suspense, useState } from "react";
 import { QuizContaminacionModel } from "./QuizContaminacionModel.jsx";
+import Button3D from "../../../components/models/button3d/Button3D";
+import { useNavigate } from "react-router-dom";
 
 export const QuizContaminacion = () => {
   const [tasks, setTasks] = useState([
-    { id: "bottles", text: "- Recoge las botellas que están contaminando el océano.", completed: false },
-    { id: "papers", text: "- Recoge las bolsas de plástico y salva a las tortugas.", completed: false },
+    {
+      id: "bottles",
+      text: "- Recoge las botellas que están contaminando el océano.",
+      completed: false,
+    },
+    {
+      id: "papers",
+      text: "- Recoge las bolsas de plástico y salva a las tortugas.",
+      completed: false,
+    },
   ]);
   const [score, setScore] = useState(0); // Puntaje inicial en porcentaje
+  const navigate = useNavigate();
 
   const handleTaskCompletion = (id) => {
     setTasks((prevTasks) =>
@@ -18,6 +29,10 @@ export const QuizContaminacion = () => {
     );
     setScore((prevScore) => prevScore + 50); // Incrementa el puntaje en un 50%
   };
+
+  const handleNavegate = () => {
+    navigate("/quiz/escasez-del-agua");
+  }
 
   return (
     <>
@@ -83,6 +98,16 @@ export const QuizContaminacion = () => {
               {task.completed ? `✔ ${task.text}` : task.text}
             </Text>
           ))}
+          { score === 100 && <Button3D
+            text="Siguiente Pregunta"
+            onClick={handleNavegate}
+            position={[-3.5, 0, 0]}
+            size={[2, 0.5, 0.2]}
+            colors={{ default: "#77E0F4", hovered: "#55C0E0" }}
+            fontSize={0.13}
+            font="/fonts/Poppins-Light.otf"
+            fontColor="black"
+          />}
         </Suspense>
       </Canvas>
       <Loader />

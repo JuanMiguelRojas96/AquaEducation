@@ -41,6 +41,8 @@ import {
 const AcidificationSolutions = () => {
   document.body.style.overflow = "hidden";
 
+  const navigate = useNavigate();
+
   const refCamera = useRef();
   const lightRef = useRef();
 
@@ -50,6 +52,10 @@ const AcidificationSolutions = () => {
     audioRef.current.play();
     audioRef.current.setVolume(10);
   }, []);
+
+  const goToQuiz = () => {
+    navigate("/quiz/contaminacion-del-agua");
+  }
 
   return (
     <>
@@ -445,6 +451,27 @@ const AcidificationSolutions = () => {
                   </div>
                 </div>
               </div>
+            </Html>
+            <Html position={[-25, 0, 0]} transform>
+              <button
+                style={{
+                  padding: "10px 20px",
+                  fontSize: "4rem",
+                  width: "500px",
+                  backgroundColor: "#0081b9",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                  position: "absolute",
+                  top: "80%",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                }}
+                onClick={goToQuiz}
+              >
+                Ir al Quiz
+              </button>
             </Html>
 
             <group position={[0, -10, 0]}>
