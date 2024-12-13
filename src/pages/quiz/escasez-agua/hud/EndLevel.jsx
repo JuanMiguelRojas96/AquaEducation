@@ -26,7 +26,7 @@ const EndLevel = ({}) => {
   };
 
   const continueToNextLevel = () => {
-      navigate("/soluciones/escasez-del-agua");
+      navigate("/quiz/acidificacion-de-los-oceanos");
   }
 
   return (

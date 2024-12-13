@@ -20,7 +20,7 @@ const navigate = useNavigate();
          name: user.displayName,
          photo: user.photoURL
        };
-       navigate("/Home")
+       navigate("/home")
       }
      }, [user]);
  
