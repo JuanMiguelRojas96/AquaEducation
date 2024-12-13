@@ -5,7 +5,7 @@ import { useCallback, useState } from "react";
 const VideoContamination = (props) => {
   const texture = useVideoTexture("/videos/contaminacion-del-agua.mp4", {
     muted: false,
-    loop: true,
+    loop: false,
     start: true
   });
 
