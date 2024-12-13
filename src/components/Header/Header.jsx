@@ -103,8 +103,20 @@ const Header = () => {
           </li>
         </ul>
         <section className="header__nav__buttons">
-          {user && (
-            <Button text="Sign Out" onClick={handleLogout} />
+          {user ? (
+            <div>
+              <img
+                src={user.photoURL}
+                alt="User Avatar"
+                className="user-avatar"
+              />
+              <div>{user.displayName}</div>
+              <div>
+                <Button text="Sign Out" onClick={handleLogout} />
+              </div>
+            </div>
+          ) : (
+            <></>
           )}
         </section>
       </nav>
