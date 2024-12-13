@@ -9,16 +9,18 @@ const DesertElements = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [clickedOnce, setClickedOnce] = useState(false);
   const [buttonState, setButtonState] = useState("PRESIONA AQUÍ");
+  const navigate = useNavigate(); 
 
   const handleClick = useCallback(() => {
     if (!clickedOnce) {
       setClickedOnce(true);
-      setButtonState("CERRAR");
+      setButtonState("SIGUIENTE");
       setIsVisible(true);
     } else {
-      setClickedOnce(false);
-      setIsVisible(false);
-      setButtonState("PRESIONA AQUÍ");
+      // setClickedOnce(false);
+      // setIsVisible(false);
+      // setButtonState("PRESIONA AQUÍ");
+      navigate("/problemas-ambientales/acidificacion-de-los-oceanos");
     }
   }, [clickedOnce]);
 
