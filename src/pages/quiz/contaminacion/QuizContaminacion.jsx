@@ -24,7 +24,7 @@ export const QuizContaminacion = () => {
       <Canvas shadows>
         <Suspense fallback={null}>
           <Sky
-            sunPosition={[0, 3, -5]}
+            sunPosition={[0, 0.5, -5]}
             inclination={0.2}
             azimuth={180}
             mieCoefficient={0.005}
@@ -65,7 +65,8 @@ export const QuizContaminacion = () => {
             textAlign="left"
             maxWidth={3}
           >
-            {`Puntaje: ${score}%`}
+            {`Puntaje: ${score}% 
+            ¡Salva la fauna Marina!`}
           </Text>
           {tasks.map((task, index) => (
             <Text
@@ -77,7 +78,7 @@ export const QuizContaminacion = () => {
               anchorX="left"
               anchorY="middle"
               textAlign="left"
-              maxWidth={3}
+              maxWidth={2.8}
             >
               {task.completed ? `✔ ${task.text}` : task.text}
             </Text>
