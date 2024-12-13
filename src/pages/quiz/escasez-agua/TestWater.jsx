@@ -12,7 +12,6 @@ import Lights from "./lights/Lights";
 import Controls from "./controls/Controls";
 import Staging from "./staging/Staging";
 import { Physics } from "@react-three/rapier";
-import Adventurer from "./world/Adventurer";
 import useMovements from "./controls/key-movements";
 import { Suspense } from "react";
 import CharacterModel from "./world/CharacterModel";
@@ -27,16 +26,13 @@ import DesertModified from "./world/DesertModified";
 import WaterBottle from "./3d-elements/collectibles/WaterBottle";
 import HudTest from "./hud/HudTest";
 
-
 const TestWater = () => {
   const map = useMovements();
-  const characterURL = "/models-3d/Adventurer.glb";
 
   const [endLevel, setEndLevel] = useState(false);
 
   const customContainerStyles = {
-    backgroundColor: "lightblue", // Change this to your desired color
-    // Add other styles if needed
+    backgroundColor: "lightblue",
   };
 
   const audioRef = useRef();
@@ -51,24 +47,18 @@ const TestWater = () => {
     setEndLevel(true);
   };
 
-
   return (
     <KeyboardControls map={map}>
       <Canvas shadows onClick={handleAudio}>
         <Suspense fallback={null}>
-          {/* <Perf /> */}
-          {/* <OrbitControls/> */}
           <KeyImage />
           <Lights />
           <Staging />
-          <Physics debug={true}>
-            {/* <SphereRobot scale={0.5}/> */}
+          <Physics debug={false}>
             <Desert />
-            <WaterBottle finishedLevel={finalizoNivel}/>
-            {/* <DesertModified /> */}
+            <WaterBottle finishedLevel={finalizoNivel} />
             <CharacterModel />
-
-            {/* <Iguana position={[10, 0, 8]}/> */}
+            <Iguana position={[10, 0, 8]} />
           </Physics>
           <Video
             name="screen"
@@ -87,9 +77,7 @@ const TestWater = () => {
         </Suspense>
       </Canvas>
       <Loader containerStyles={customContainerStyles} />
-      <HudTest
-      endLevel={endLevel}
-      />
+      <HudTest endLevel={endLevel} />
     </KeyboardControls>
   );
 };
