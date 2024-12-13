@@ -1,7 +1,9 @@
 // src/pages/ProblemaContaminacion.js
 import { Canvas } from '@react-three/fiber';
+import { Suspense } from 'react';
 import IntroWater from './IntroWater.jsx';
 import './ProblemaContaminacion.css';
+import { Loader } from '@react-three/drei';
 
 /**
  * ProblemaContaminacion component.
@@ -14,8 +16,11 @@ const ProblemaContaminacion = () => {
   return (
     <main className="problema-contaminacion">
       <Canvas camera={{ position: [0, 2, 12] }} shadows className="canvas-background">
-        <IntroWater />
+        <Suspense fallback={null}>
+          <IntroWater />
+        </Suspense>
       </Canvas>
+      <Loader />
     </main>
   );
 };

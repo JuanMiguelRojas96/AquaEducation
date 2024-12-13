@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { ExploracionContaminacionModel } from "./ExploracionContaminacionModel";
 import { Canvas } from "@react-three/fiber";
-import { Html, Sky } from "@react-three/drei";
+import { Html, Loader, Sky } from "@react-three/drei";
 import Controls from "../controls/Controls";
 import { Vector3 } from "three";
 import { useAspectsStore } from "../../../stores/store-aspects-select";
@@ -26,11 +26,10 @@ const texts = [
   },
 ];
 
-
 const cameraPositions = [
   new Vector3(0, 2, 4), // Cámara para "Causas"
-  new Vector3(0.5, 1, 2.99),   // Cámara para "Impactos"
-  new Vector3(1, 1, 2),  // Cámara para "Soluciones"
+  new Vector3(0.5, 1, 2.99), // Cámara para "Impactos"
+  new Vector3(1, 1, 2), // Cámara para "Soluciones"
 ];
 
 export const ExploracionContaminacion = () => {
@@ -38,7 +37,6 @@ export const ExploracionContaminacion = () => {
   const [ubication, setUbication] = useState([-5, 1, 0]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const navegate = useNavigate();
-
 
   const handleAspect = useCallback(
     (name, position, ubicationHtml) => {
@@ -58,11 +56,7 @@ export const ExploracionContaminacion = () => {
   const handleNext = () => {
     const newIndex = (currentIndex + 1) % texts.length;
     changeText(newIndex);
-    handleAspect(
-      texts[newIndex].title,
-      cameraPositions[newIndex],
-      [-5, 1, 0]
-    );
+    handleAspect(texts[newIndex].title, cameraPositions[newIndex], [-5, 1, 0]);
   };
 
   const handleSensibilization = () => {
@@ -74,25 +68,13 @@ export const ExploracionContaminacion = () => {
       handleNext();
     } else if (event.code === "Digit1") {
       setCurrentIndex(0); // Selecciona "Causas" con el número 1
-      handleAspect(
-        texts[0].title,
-        cameraPositions[0],
-        [-5, 1, 0]
-      );
+      handleAspect(texts[0].title, cameraPositions[0], [-5, 1, 0]);
     } else if (event.code === "Digit2") {
       setCurrentIndex(1); // Selecciona "Impactos" con el número 2
-      handleAspect(
-        texts[1].title,
-        cameraPositions[1],
-        [-5, 1, 0]
-      );
+      handleAspect(texts[1].title, cameraPositions[1], [-5, 1, 0]);
     } else if (event.code === "Digit3") {
       setCurrentIndex(2); // Selecciona "Soluciones" con el número 3
-      handleAspect(
-        texts[2].title,
-        cameraPositions[2],
-        [-7, 1, 0]
-      );
+      handleAspect(texts[2].title, cameraPositions[2], [-7, 1, 0]);
     }
   };
 
@@ -109,44 +91,55 @@ export const ExploracionContaminacion = () => {
         <h1 className="exploracion-header-title">Exploración Contaminación</h1>
         <p>
           Usa <strong>Espacio</strong> para cambiar entre las Secciones: Causas,
-          Impactos y Soluciones. También puedes usar las teclas <strong>1(Causas)</strong>, <strong>2(Impactos)</strong> y <strong>3(Soluciones)</strong> para navegar directamente.
+          Impactos y Soluciones. También puedes usar las teclas{" "}
+          <strong>1(Causas)</strong>, <strong>2(Impactos)</strong> y{" "}
+          <strong>3(Soluciones)</strong> para navegar directamente.
         </p>
       </div>
       <Canvas camera={{ position: [0, 10, 4], fov: 100 }} shadows>
-        <Sky
-          sunPosition={[0, 0.2, -5]}
-          inclination={0.2}
-          azimuth={180}
-          mieCoefficient={0.005}
-          mieDirectionalG={0.07}
-          rayleigh={1}
-          turbidity={2}
-        />
-        <ambientLight intensity={0.5} />
-        <directionalLight
-          position={[0, 3, 7]}
-          intensity={3}
-          castShadow
-          shadow-mapSize-width={4000}
-          shadow-mapSize-height={1024}
-        />
-        <Controls />
+        <Suspense fallback={null}>
+          <Sky
+            sunPosition={[0, 0.2, -5]}
+            inclination={0.2}
+            azimuth={180}
+            mieCoefficient={0.005}
+            mieDirectionalG={0.07}
+            rayleigh={1}
+            turbidity={2}
+          />
+          <ambientLight intensity={0.5} />
+          <directionalLight
+            position={[0, 3, 7]}
+            intensity={3}
+            castShadow
+            shadow-mapSize-width={4000}
+            shadow-mapSize-height={1024}
+          />
+          <Controls />
 
-        <ExploracionContaminacionModel handleIndex={currentIndex} />
+          <ExploracionContaminacionModel handleIndex={currentIndex} />
 
-        <Html position={ubication} center>
-          <div className="exploracion-html-container">
-            <h1 className="exploracion-html-title">{texts[currentIndex].title}</h1>
-            <p className="exploracion-html-paragraph">{texts[currentIndex].content}</p>
-            <button
-              className="exploracion-html-button"
-              onClick={ currentIndex === 2 ? handleSensibilization : handleNext }
-            >
-              { currentIndex === 2 ? "Exporemos la solución" : "Siguiente"}
-            </button>
-          </div>
-        </Html>
+          <Html position={ubication} center>
+            <div className="exploracion-html-container">
+              <h1 className="exploracion-html-title">
+                {texts[currentIndex].title}
+              </h1>
+              <p className="exploracion-html-paragraph">
+                {texts[currentIndex].content}
+              </p>
+              <button
+                className="exploracion-html-button"
+                onClick={
+                  currentIndex === 2 ? handleSensibilization : handleNext
+                }
+              >
+                {currentIndex === 2 ? "Exporemos la solución" : "Siguiente"}
+              </button>
+            </div>
+          </Html>
+        </Suspense>
       </Canvas>
+      <Loader />
     </>
   );
 };

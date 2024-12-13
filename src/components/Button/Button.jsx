@@ -11,12 +11,15 @@ import './Button.css';
  * @param {string} [props.href] - Optional URL to navigate to when the button is clicked.
  * @returns {JSX.Element} The rendered button element.
  */
-const Button = ({ text, secondary = false, href, ...props }) => {
+const Button = ({ text, secondary = false, href, onClick ,...props }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
     if (href) {
-      navigate(href); 
+      navigate(href);
+    }
+    if (onClick) {
+      onClick();
     }
   }
 
@@ -34,7 +37,8 @@ const Button = ({ text, secondary = false, href, ...props }) => {
 Button.propTypes = {
   text: PropTypes.string.isRequired,
   secondary: PropTypes.bool,
-  href: PropTypes.string
+  href: PropTypes.string,
+  onClick: PropTypes.func
 }
 
 export default Button;
