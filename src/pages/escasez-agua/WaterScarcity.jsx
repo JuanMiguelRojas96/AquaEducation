@@ -20,10 +20,8 @@ const WaterScarcity = () => {
   const audioRef = useRef(null);
 
   const activeSound = useCallback(() => {
-
         audioRef.current.play();
         audioRef.current.setVolume(10);
-
   }, []);
 
   return (
