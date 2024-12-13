@@ -1,5 +1,5 @@
 import { useVideoTexture } from "@react-three/drei"
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 
 
 const VideoContamination = (props) => {
@@ -12,13 +12,24 @@ const VideoContamination = (props) => {
   const [pause, setPause] = useState(false);
 
   const handleVideo = useCallback(
-    (e)=> {
+    (e) => {
       e.stopPropagation();
-      pause ? texture.image.play() : texture.image.pause();
-      setPause(!pause);
-  },
-  [pause, setPause, texture]
-  )
+      if (texture?.image) {
+        pause ? texture.image.play() : texture.image.pause();
+        setPause(!pause);
+      }
+    },
+    [pause, texture]
+  );
+
+  useEffect(() => {
+    return () => {
+      if (texture?.image) {
+        texture.image.pause();
+        texture.image.currentTime = 0;
+      }
+    };
+  }, [texture]);
 
 
   return (
