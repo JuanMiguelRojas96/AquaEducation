@@ -7,6 +7,7 @@ import Layout from "./components/Layout/Layout.jsx";
 import Login from "./components/Login/Login.jsx";
 import Home from "./pages/Home/Home.jsx";
 import ProblemaContaminacion from "./pages/ProblemasMedioAmbientales/ProblemaContaminacion/ProblemaContaminacion.jsx";
+import ContaminationSolutions from "./pages/solutions/contaminacion/ContaminationSolutions.jsx";
 import AcidificationIntroduction from "./pages/ProblemasMedioAmbientales/Acidification/Problem Introduccion/AcidificationIntroduction.jsx";
 import AcidificationExploration from "./pages/ProblemasMedioAmbientales/Acidification/Exploration/ExploringAcidification.jsx";
 import AcidificationSolutions from "./pages/ProblemasMedioAmbientales/Acidification/Solutions/AcidificationSolutions.jsx";
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
         path: "/soluciones/escasez-del-agua",
         element: <Solutions />,
       },
+      {
+        path: "/soluciones/contaminacion-del-agua",
+        element: <ContaminationSolutions />,
+      }
       {
         path: "/quiz/escasez-del-agua",
         element: <TestWater/>,
