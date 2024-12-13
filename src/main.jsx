@@ -68,7 +68,7 @@ const router = createBrowserRouter([
       {
         path: "/soluciones/contaminacion-del-agua",
         element: <ContaminationSolutions />,
-      }
+      },
       {
         path: "/quiz/escasez-del-agua",
         element: <TestWater/>,
