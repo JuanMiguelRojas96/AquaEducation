@@ -61,7 +61,7 @@ const TestWater = () => {
           <KeyImage />
           <Lights />
           <Staging />
-          <Physics debug={true}>
+          <Physics>
             {/* <SphereRobot scale={0.5}/> */}
             <Desert />
             <WaterBottle finishedLevel={finalizoNivel}/>
