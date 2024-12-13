@@ -17,6 +17,7 @@ import River from "./pages/exploracion/water-scarcity/River.jsx";
 import Solutions from "./pages/solutions/escasez-agua/Solutions.jsx";
 import QuizContaminacion from "./pages/quiz/contaminacion/QuizContaminacion.jsx";
 import TestWater from "./pages/quiz/escasez-agua/TestWater.jsx";
+import QuizAcidification from "./pages/quiz/acidificacion/QuizAcidification.jsx";
 
 const router = createBrowserRouter([
   {
@@ -36,7 +37,7 @@ const router = createBrowserRouter([
       },
       {
         path: "problemas-ambientales/escasez-del-agua",
-        element: <WaterScarcity/>,
+        element: <WaterScarcity />,
       },
       {
         path: "/problemas-ambientales/acidificacion-de-los-oceanos",
@@ -52,7 +53,7 @@ const router = createBrowserRouter([
       },
       {
         path: "exploracion/escasez-del-agua",
-        element: <River />
+        element: <River />,
       },
       {
         path: "/exploracion/acidificacion-de-los-oceanos",
@@ -76,7 +77,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/quiz/escasez-del-agua",
-        element: <TestWater/>,
+        element: <TestWater />,
+      },
+      {
+        path: "/quiz/acidificacion-de-los-oceanos",
+        element: <QuizAcidification />,
       },
     ],
   },

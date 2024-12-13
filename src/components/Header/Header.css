@@ -28,7 +28,7 @@
 }
 
 .separator {
-  padding: 5px ;
+  padding: 5px;
 }
 
 .header__nav__ul__dropdown {
@@ -60,7 +60,6 @@
   color: black;
 }
 
-
 .header__nav__ul__li:hover .header__nav__ul__dropdown,
 .header__nav__ul__li:focus-within .header__nav__ul__dropdown {
   display: block;
@@ -70,7 +69,7 @@
 
 .header__nav__ul__li > a:hover {
   color: black;
-} 
+}
 
 .header__nav__ul__li .active {
   color: black;
@@ -87,9 +86,57 @@
   margin-left: 50px;
 }
 
-.header__nav__buttons {
+/* .header__nav__buttons {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   margin-right: 50px;
+} */
+
+.header__nav__buttons div {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espacio entre elementos */
+}
+
+.header__nav__buttons {
+  display: flex;
+  justify-content: flex-end; /* Mover contenido al extremo derecho */
+  align-items: center; /* Centrar verticalmente */
+  padding: 0 15px; /* Espaciado interno */
+}
+
+.header__nav__buttons div > div {
+  font-size: 16px;
+  margin-right: 10px; /* Separar el texto del botón */
+  color: #333; /* Cambiar color del texto */
+}
+
+.header__nav__buttons button {
+  padding: 8px 12px;
+  font-size: 14px;
+  background-color: #007bff; /* Botón azul */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.header__nav__buttons button:hover {
+  background-color: #0056b3; /* Cambiar color al pasar el mouse */
+}
+
+@media (max-width: 768px) {
+  .header__nav__buttons div {
+    flex-direction: column;
+    align-items: flex-start; /* Alinear en pantallas pequeñas */
+  }
+}
+
+.user-avatar {
+  width: 40px; /* Tamaño del avatar */
+  height: 40px;
+  border-radius: 50%; /* Hacerlo circular */
+  object-fit: cover; /* Asegurar que la imagen se recorte bien */
+  border: 2px solid #ccc; /* Opcional: agregar un borde */
 }
