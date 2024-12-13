@@ -6,6 +6,8 @@ import WetLand from './world/WetLand';
 import { ScrollControls } from '@react-three/drei';
 // import { Physics } from '@react-three/rapier';
 import Text from './2d-elements/Text';
+import PostProcessing from './postprocessing/PostProcessing';
+
 
 
 const River= () => {
@@ -27,6 +29,7 @@ const River= () => {
         <WetLand />
         </ScrollControls>
         {/* </Physics> */}
+        <PostProcessing />
       </Canvas>
     {/* /* // </KeyboardControls> */ }
     </>

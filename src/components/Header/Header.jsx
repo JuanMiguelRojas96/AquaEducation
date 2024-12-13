@@ -1,22 +1,17 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import "./Header.css";
 import Logo from "../../assets/images/logo.jpg";
 import Button from "../Button/Button";
+import { useNavigate } from "react-router-dom";
 
-/**
- * HeaderDropdown component renders a dropdown menu with navigation links.
- *
- * @param {Object} props - The props for HeaderDropdown component.
- * @param {string} props.padre - The base path for the navigation links.
- * @returns {JSX.Element} The rendered dropdown menu element, containing links
- *          to various environmental problems under the specified path.
- */
 const HeaderDropdown = ({ padre }) => {
   return (
     <ul className="header__nav__ul__dropdown">
       <hr className="separator" />
-      <li className='header__nav__ul__dropdown__li'>
+      <li className="header__nav__ul__dropdown__li">
         <NavLink
           to={`/${padre}/contaminacion-del-agua`}
           className={({ isActive }) => (isActive ? "active" : "")}
@@ -24,7 +19,7 @@ const HeaderDropdown = ({ padre }) => {
           Contaminación del Agua
         </NavLink>
       </li>
-      <li className='header__nav__ul__dropdown__li'>
+      <li className="header__nav__ul__dropdown__li">
         <NavLink
           to={`/${padre}/escasez-del-agua`}
           className={({ isActive }) => (isActive ? "active" : "")}
@@ -32,7 +27,7 @@ const HeaderDropdown = ({ padre }) => {
           Escasez del Agua
         </NavLink>
       </li>
-      <li className='header__nav__ul__dropdown__li'>
+      <li className="header__nav__ul__dropdown__li">
         <NavLink
           to={`/${padre}/acidificacion-de-los-oceanos`}
           className={({ isActive }) => (isActive ? "active" : "")}
@@ -48,14 +43,33 @@ HeaderDropdown.propTypes = {
   padre: PropTypes.string.isRequired,
 };
 
-/**
- * Header component that renders the top navigation bar for the application.
- *
- * @returns {JSX.Element} The rendered header element containing navigation links,
- *          a brand logo, and action buttons. It includes dropdown menus for 
- *          environmental issues and exploration links.
- */
 const Header = () => {
+  const [user, setUser] = useState(null);
+  const navigation = useNavigate();
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    // Cleanup the subscription
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogout = () => {
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        console.log("User signed out.");
+        navigation("/");
+      })
+      .catch((error) => {
+        console.error("Sign-out error:", error);
+      });
+  };
+
+  if (!user) return null;
   return (
     <header className="header">
       <nav className="header__nav">
@@ -89,8 +103,9 @@ const Header = () => {
           </li>
         </ul>
         <section className="header__nav__buttons">
-          <Button text="Sign In" secondary />
-          <Button text="Register" />
+          {user && (
+            <Button text="Sign Out" onClick={handleLogout} />
+          )}
         </section>
       </nav>
     </header>
