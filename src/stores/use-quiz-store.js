@@ -22,8 +22,18 @@ const useQuizStore = create((set) => ({
       },
     }),
 
+    incrementQuizPorcentage: () => 
+    set((state) => {
+      
+      const newPercentage = Math.min(state.quiz.percentageQuizCompleted + 33, 100);
 
-
+    return {
+      quiz: {
+        ...state.quiz,
+        percentageQuizCompleted: newPercentage,
+      },
+    }
+  }),
 
 }));
 

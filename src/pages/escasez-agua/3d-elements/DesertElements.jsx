@@ -48,7 +48,7 @@ const DesertElements = () => {
           position={[0, 12, 0]}
           font="/fonts/Poppin-Bold.otf"
           fontSize={0.5}
-          color="black"
+          color="white"
           anchorX="center"
           anchorY="middle"
           textAlign="justify"

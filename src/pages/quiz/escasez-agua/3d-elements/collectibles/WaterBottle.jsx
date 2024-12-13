@@ -31,7 +31,7 @@ export default function WaterBottle( {props, finishedLevel }) {
     colliders="hull"
     type='Fixed'
     onCollisionEnter={(e)=> onCollisionEnter(e)}
-    position={[8,1,12]}
+    position={[0,1,-9]}
     >
     <group {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]} scale={0.65}>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Confetti from "react-confetti";
 import "./endLevel.css";
 import { useNavigate } from "react-router-dom";
+// import Quiz from "../quiz/Quiz";
 
 const EndLevel = ({}) => {
   const [showQuestion, setQuestion] = useState(true);
@@ -57,6 +58,7 @@ const EndLevel = ({}) => {
                 <button className="question-true-button" onClick={continueToNextLevel}>
                   Continuar al siguiente nivel
                 </button>
+                {/* <Quiz /> */}
               </div>
       )}
 
