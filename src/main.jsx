@@ -14,6 +14,7 @@ import { ExploracionContaminacion } from "./pages/exploracion/contaminacion/Expl
 import WaterScarcity from "./pages/escasez-agua/WaterScarcity.jsx";
 import River from "./pages/exploracion/water-scarcity/River.jsx";
 import Solutions from "./pages/solutions/escasez-agua/Solutions.jsx";
+import TestWater from "./pages/quiz/escasez-agua/TestWater.jsx";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
       {
         path: "/soluciones/escasez-del-agua",
         element: <Solutions />,
+      },
+      {
+        path: "/quiz/escasez-del-agua",
+        element: <TestWater/>,
       },
     ],
   },

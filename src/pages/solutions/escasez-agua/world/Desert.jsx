@@ -1,7 +1,8 @@
 import { useRef } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import DesertElements from "../3d-elements/DesertElements";
-import { RigidBody, CuboidCollider } from "@react-three/rapier";
+import { RigidBody} from "@react-three/rapier";
+
 
 const Desert = (props) => {
   const group = useRef();
@@ -11,7 +12,8 @@ const Desert = (props) => {
   return (
     <>
       <DesertElements />
-      <RigidBody type="fixed">
+
+      <RigidBody type="fixed" colliders="cuboid">
       <group ref={group} {...props} dispose={null}>
         <group name="Scene">
           <group

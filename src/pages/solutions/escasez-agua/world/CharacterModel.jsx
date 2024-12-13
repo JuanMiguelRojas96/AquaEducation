@@ -3,6 +3,7 @@ import Ecctrl from 'ecctrl'
 
 export default function CharacterModel(props) {
   const { nodes, materials } = useGLTF('/models-3d/ghost_w_tophat.glb')
+  console.log(nodes, materials)
   return (
     <Ecctrl 
     //  mode="FixedCamera" 
